@@ -47,13 +47,20 @@ function App() {
   const aoNovoColaboradorAdicionado = (colaborador) => {
     setColaborades([...colaboradores, colaborador])
   }
+
   return (
     <div className="App">
       <Banner />
-      <Formulario aoColaboradorCadastrado={valor => aoNovoColaboradorAdicionado(valor)} />
+      <Formulario times={times.map(time => time.nome)} aoColaboradorCadastrado={valor => aoNovoColaboradorAdicionado(valor)} />
       {times.map(time => {
-        return <Time key={time.nome} nome={time.nome} corPrimaria={time.corPrimaria} corSecundaria={time.corSecundaria}/>}
-        )}
+        return <Time
+          key={time.nome}
+          nome={time.nome}
+          colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)}
+          corPrimaria={time.corPrimaria} 
+          corSecundaria={time.corSecundaria} />
+      }
+      )}
     </div>
   );
 }
